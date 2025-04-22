@@ -145,12 +145,14 @@ uvicorn main:app --reload
 
 ### 5. API Endpoints
 
-| Method | Endpoint      | Description                      |
-| ------ | ------------- | -------------------------------- | -------- | ------------------------ |
-| POST   | `/generate`   | Generate NFA, DFA, Minimized DFA |
-| POST   | `/simulate`   | Simulate DFA with trace output   |
-| GET    | `/visuals/nfa | dfa                              | min_dfa` | Return PNG visualization |
-| GET    | `/json/nfa    | dfa                              | min_dfa` | Return JSON structure    |
+```bash
+| Method | Endpoint                     | Description                           |
+|--------|------------------------------|---------------------------------------|
+| POST   | `/generate`                  | Generate NFA, DFA, Minimized DFA      |
+| POST   | `/simulate`                  | Simulate DFA with trace output        |
+| GET    | `/visuals/nfa|dfa|min_dfa`   | Return PNG visualization              |
+| GET    | `/json/nfa|dfa|min_dfa`      | Return JSON structure                 |
+```
 
 ---
 
