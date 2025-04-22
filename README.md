@@ -1,55 +1,66 @@
 # Interactive Visual Simulation of Regular Expression to Minimal DFA
 
-This project is a C++ tool that visualizes the step-by-step transformation from a regular expression into a **minimal deterministic finite automaton (DFA)**. It provides educational insight into key automata theory algorithms: Thompson's construction, subset construction, and Hopcroft’s minimization.
+A C++ tool for visualizing the step-by-step transformation from a regular expression into a **minimal deterministic finite automaton (DFA)**. Designed for educational use, this project demonstrates key automata theory algorithms such as Thompson's construction, subset construction, and Hopcroft’s minimization.
+
+---
 
 ## ✨ Features
 
-- **Regex to NFA** using Thompson's construction
-- **NFA to DFA** using subset construction (with ε-closures)
-- **DFA Minimization** using Hopcroft’s algorithm
-- **Input string simulation** with trace visualization
-- **Graphviz-based visualization** for NFA, DFA, and Minimized DFA
-- **Multiple CLI modes** for simulation, export, batch testing, and visualization
+- ✅ Regex ➔ NFA via **Thompson's construction**
+- ✅ NFA ➔ DFA via **subset construction** (with ε-closures)
+- ✅ DFA ➔ Minimal DFA via **Hopcroft’s algorithm**
+- 🌟 **Simulation** of input strings with trace logging
+- 📊 **Graphviz-based visualization** (NFA, DFA, Minimized DFA)
+- ⚙️ Multiple CLI modes: simulation, batch testing, export, visualization
+- 🌐 **FastAPI backend** for web-based interaction via RESTful API
+
+---
 
 ## 📁 Project Structure
 
 ```bash
-Final_Project/
+cpp/
 ├── CMakeLists.txt
 ├── input.txt
-├── output/                   # Output JSONs and result logs
+├── include/                 # Header files
+│   ├── nfa.h
+│   ├── dfa.h
+│   └── nlohmann/json.hpp
+├── src/                     # C++ source files
+│   ├── main.cpp
+│   ├── dfa.cpp
+│   └── nfa.cpp
+├── test/                    # Unit tests
+│   └── test_all.cpp
+├── build/                   # Build artifacts (CMake)
+├── output/                  # JSON outputs
 │   ├── nfa.json
 │   ├── dfa.json
 │   ├── min_dfa.json
 │   └── result.txt
-├── include/                 # Header files
-│   ├── dfa.h
-│   ├── nfa.h
-│   └── nlohmann/json.hpp
-├── src/                     # Source code
-│   ├── dfa.cpp
-│   ├── nfa.cpp
-│   └── main.cpp
-├── test/                    # Unit testing
-│   └── test_all.cpp
-├── visualize/               # Python visualization
+├── visualize/               # Python Graphviz scripts
 │   ├── visualize_nfa.py
 │   ├── visualize_dfa.py
 │   ├── visualize_min_dfa.py
-│   ├── nfa_visual.png
-│   ├── dfa_visual.png
-│   └── min_dfa_visual.png
+│   └── *.png (auto-generated visuals)
+├── server/                  # FastAPI backend
+│   ├── main.py
+│   └── requirements.txt
+└── README.md
 ```
+
+---
 
 ## ⚙️ Build Instructions
 
 ### Requirements
 
-- C++17 compiler
-- CMake >= 3.10
-- Python 3 + `graphviz` (`pip install graphviz`)
+- C++17-compatible compiler
+- CMake ≥ 3.10
+- Python 3
+- `graphviz` (install via `pip install graphviz`)
 
-### Build
+### Build the C++ Project
 
 ```bash
 mkdir build
@@ -58,62 +69,125 @@ cmake ..
 cmake --build .
 ```
 
-## 🚀 Usage
+---
 
-### Interactive Mode
+## 🚀 CLI Usage
+
+### 1. Interactive Mode
 
 ```bash
 ./main
 ```
 
-Enter regex and test strings interactively.
-
-### Simulate a Regex on a String
+### 2. Simulate a Regex on a String
 
 ```bash
 ./main --simulate "(a|b)*abb" abb --trace
-./main --simulate "(a|b)*abb" abb --trace --min   # Minimized DFA
+./main --simulate "(a|b)*abb" abb --trace --min   # using minimized DFA
 ```
 
-### Visualize Automata
+### 3. Visualize Automata
 
 ```bash
-./main --visualize "(a|b)*abb"          # NFA + DFA
-./main --visualize-min "(a|b)*abb"      # Minimized DFA
+./main --visualize "(a|b)*abb"         # generate NFA and DFA
+./main --visualize-min "(a|b)*abb"     # generate Minimized DFA
 ```
 
-### Run from File (e.g. input.txt)
+### 4. Run from Input File
 
 ```bash
 ./main --file input.txt
 ```
 
-### Batch Test All Regexes
+### 5. Batch Test Mode
 
 ```bash
 ./main --test
 ```
 
-## ✅ Test File (test_all.cpp)
+---
 
-Includes assertions for:
+## 🌐 FastAPI Server
 
-- Accepted and rejected strings
-- DFA state count bounds
-- Detection of dead states
-- Minimized DFA state count
+Control the C++ backend through a Python-based REST API.
+
+### 1. Setup Virtual Environment
+
+```bash
+cd server
+python -m venv venv
+```
+
+### 2. Activate Environment
+
+- **Windows**:
+
+  ```bash
+  venv\Scripts\activate
+  ```
+
+- **macOS/Linux**:
+  ```bash
+  source venv/bin/activate
+  ```
+
+### 3. Install Dependencies
+
+```bash
+pip install -r requirements.txt
+```
+
+### 4. Start the Server
+
+```bash
+uvicorn main:app --reload
+```
+
+### 5. API Endpoints
+
+| Method | Endpoint      | Description                      |
+| ------ | ------------- | -------------------------------- | -------- | ------------------------ |
+| POST   | `/generate`   | Generate NFA, DFA, Minimized DFA |
+| POST   | `/simulate`   | Simulate DFA with trace output   |
+| GET    | `/visuals/nfa | dfa                              | min_dfa` | Return PNG visualization |
+| GET    | `/json/nfa    | dfa                              | min_dfa` | Return JSON structure    |
+
+---
+
+## ✅ Test Suite
+
+- Located in: `test/test_all.cpp`
+- Covers:
+  - String acceptance/rejection
+  - State count limits
+  - Dead state detection
+  - Minimization effectiveness
+
+### Run tests:
+
+```bash
+./test_all
+```
+
+---
 
 ## 📊 Example Output
 
-- Trace: `0 -> 1 -> 2 -> 3`
-- Result: `[OK] Accepted`
-- Output: `visualize/min_dfa_visual.png`
+```
+Trace: 0 -> 1 -> 2 -> 3
+Result: [OK] Accepted
+Output: visualize/min_dfa_visual.png
+```
+
+---
 
 ## 📚 Algorithms Used
 
-- **Thompson’s Construction**: Build ε-NFA from regex
-- **Subset Construction**: Convert ε-NFA to DFA
-- **Hopcroft’s Algorithm**: Minimize DFA using partition refinement
+- **Thompson’s Construction**: Builds ε-NFA from regex
+- **Subset Construction**: Converts ε-NFA to DFA
+- **Hopcroft’s Algorithm**: Minimizes DFA via partition refinement
+
+---
 
 ## 👨‍💻 Authors
 
@@ -121,6 +195,9 @@ Includes assertions for:
 - Bao Long Duong
 - An Nguyen
 
+---
+
 ## 📄 License
 
-Educational use only. Built for COT 4210 Final Project.
+**Educational use only.**  
+Developed for the COT 4210 Final Project.
