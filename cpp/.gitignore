@@ -1,0 +1,11 @@
+# IDE folders
+.vscode/
+
+# Build artifacts
+build/
+output/
+visualize/
+
+# Python cache and virtual environment
+server/__pycache__/
+server/venv/

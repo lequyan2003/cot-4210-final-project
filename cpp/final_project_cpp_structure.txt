@@ -1,0 +1,37 @@
+/Final_Project/
+│
+├── CMakeLists.txt
+├── input.txt
+├── README.md                   # Optional, for documentation
+│
+├── include/                   # All header files (.h)
+│   ├── nfa.h
+│   ├── dfa.h
+│   └── nlohmann
+│   	 ├── json.hpp
+│
+├── src/                       # All C++ implementation (.cpp)
+│   ├── main.cpp
+│   ├── dfa.cpp
+│   └── nfa.cpp
+│
+├── test/                      # Unit tests if you add them
+│   └── test_all.cpp
+│
+├── build/                     # Build artifacts (created by CMake)
+│   └── (empty initially)
+│
+├── visualize/                 # Python tools & rendered files
+│   ├── visualize_nfa.py
+│   ├── visualize_dfa.py
+│   ├── dfa_visual.png         # (Generated)
+│   └── nfa_visual.png         # (Generated)
+|
+├── server/ 
+│   ├── main.py
+│   ├── requirements.txt
+│
+├── output/                    # All output from compiled program
+│   ├── result.txt         	# (Generated)
+│   ├── dfa.json         		# (Generated)
+│   └── nfa.json              	# (Generated)
