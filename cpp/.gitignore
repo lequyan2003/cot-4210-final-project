@@ -5,7 +5,7 @@
 build/
 output/
 visualize/nfa_visual
-visualize/dfa_visual.png
+visualize/nfa_visual.png
 visualize/dfa_visual
 visualize/dfa_visual.png
 visualize/min_dfa_visual
