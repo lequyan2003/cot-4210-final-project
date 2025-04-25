@@ -63,6 +63,7 @@ cpp/
 ### Build the C++ Project
 
 ```bash
+cp cpp
 mkdir build
 cd build
 cmake ..
