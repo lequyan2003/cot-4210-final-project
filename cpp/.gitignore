@@ -4,7 +4,12 @@
 # Build artifacts
 build/
 output/
-visualize/
+visualize/nfa_visual
+visualize/dfa_visual.png
+visualize/dfa_visual
+visualize/dfa_visual.png
+visualize/min_dfa_visual
+visualize/min_dfa_visual.png
 
 # Python cache and virtual environment
 server/__pycache__/
